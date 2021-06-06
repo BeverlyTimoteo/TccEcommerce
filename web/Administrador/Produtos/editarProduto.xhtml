@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="../AdmPadrao.xhtml"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="title">
+        Edição de Produtos
+    </ui:define>
+    <ui:define name="content">
+        <h2>Editar Produto #{controleProdutos.beanSelecionado.nome}</h2>
+        <h:form>
+            <f:validateBean>
+                <h:messages/>
+                <table>
+                    <tr>
+                        <td>Nome</td>
+                        <td><h:inputText value="#{controleProdutos.beanSelecionado.nome}"/></td>
+                    </tr>
+                    <tr>
+                        <td>Preço</td>
+                        <td><h:inputText value="#{controleProdutos.beanSelecionado.preco}"/></td>
+                    </tr>
+                    <tr>
+                        <td>Foto URL</td>
+                        <td><h:inputText style="width: 340px" value="#{controleProdutos.beanSelecionado.fotoUrl}"/></td>
+                    </tr>
+                    <tr>
+                        <td>Categoria</td>
+                        <td><h:selectOneMenu style="width: 150px" value="#{controleProdutos.beanSelecionado.idCategoria}" >
+                                <f:selectItems var="itemCat" itemLabel="#{itemCat.nome}" itemValue="#{itemCat}" value="#{controleProdutos.todasCategorias}"/>
+                                <f:converter converterId="categoriaParaConverter"/>
+                            </h:selectOneMenu>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Descrição</td>
+                        <td><h:inputTextarea cols="40" rows="5" value="#{controleProdutos.beanSelecionado.descricao}">
+                            </h:inputTextarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Itens em Estoque</td>
+                        <td><h:inputText value="#{controleProdutos.beanSelecionado.estoque}"/></td>
+                    </tr>
+                    <tr>
+                        <td><center><h:commandButton action="#{controleProdutos.encerrarEdicaoProduto()}" value="Encerrar Edição"/></center></td>
+                        <td><center><h:commandButton immediate="true" action="#{controleProdutos.listaDeProdutos()}" value="Cancelar"/></center></td>
+                    </tr>
+                </table>
+            </f:validateBean>
+        </h:form>
+    </ui:define>
+</ui:composition>

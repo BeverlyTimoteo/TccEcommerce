@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Ecommerce  - Login </title>
+    </h:head>
+    <h:body>
+        <h:outputStylesheet library="css" name="admLogin.css"/>
+        <h:form>
+            <h:graphicImage style="position: absolute; margin: 12.5% 15% 15% 39%; height: 180px; width: 240px;"  value="/imagens/fundologin.png" alt="Fundo Login"/>
+            <f:validateBean>            
+                <div class="admLogin" id="admLogin">
+                    <h:messages styleClass="error"/>
+                    <table class="login" id="login">
+                        <tr>
+                            <td>Usuario</td>
+                            <td><h:inputText value="#{loginAdministracao.usuario}"/></td>
+                        </tr>
+                        <tr>
+                            <td>Senha</td>
+                            <td><h:inputSecret size="13" value="#{loginAdministracao.senha}"/>
+                                <h:commandButton action="#{loginAdministracao.fazerLogin()}" value="Entrar"/></td>
+                        </tr>
+                    </table>
+                </div>              
+            </f:validateBean>
+        </h:form>
+    </h:body>
+</html>
+

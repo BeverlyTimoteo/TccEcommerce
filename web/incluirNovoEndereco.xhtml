@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./padrao.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:tcc="http://java.sun.com/jsf/composite/componentes/TCC"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="title">
+       ELETROSUPER - Adicionando um Novo Endere&ccedil;o
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form id="frmIncluirNovoEndereco">
+            <h:outputScript>
+                document.frmIncluirNovoEndereco["frmIncluirNovoEndereco:usuario"].focus();
+            </h:outputScript>
+            <h:outputScript target="head" library="js" name="pesquisaProduto.js"/>
+            <h:messages/>
+            <div id="NovoEndereco">
+                <table>
+                    <tr>
+                        <td>
+                            Usuario
+                        </td>
+                        <td colspan="2">
+                            <h:inputText id="usuario" required="true" requiredMessage="Usuario não pode ser Vazio" value="#{controleProdutos.enderecoCompra.idUsuario.usuario}"/>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            Rua
+                        </td>
+                        <td>
+                            <h:inputText id="rua" required="true" requiredMessage="Rua não pode ser Vazio" value="#{controleProdutos.enderecoCompra.rua}"/>
+                        </td>
+                        <td>
+                            Numero
+                            <h:inputText onkeypress='return SomenteNumero(event)' size="5" id="numero" required="true" requiredMessage="Numero não pode ser Vazio" value="#{controleProdutos.enderecoCompra.numero}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Bairro
+                        </td>
+                        <td colspan="2">
+                            <h:inputText id="bairro" required="true" requiredMessage="Bairro não pode ser Vazio" value="#{controleProdutos.enderecoCompra.bairro}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Cidade
+                        </td>
+                        <td>
+                            <h:inputText id="cidade" required="true" requiredMessage="Cidade não pode ser Vazio" value="#{controleProdutos.enderecoCompra.cidade}"/>
+                        </td>
+                        <td>
+                            Estado
+                            <h:selectOneMenu style="width: 40px" required="true" requiredMessage="Selecione um Estado" value="#{controleProdutos.enderecoCompra.estado}">
+                                <f:selectItem itemValue="1" itemLabel="AC" />
+                                <f:selectItem itemValue="2" itemLabel="AL" />
+                                <f:selectItem itemValue="3" itemLabel="AP" />
+                                <f:selectItem itemValue="4" itemLabel="AM" />
+                                <f:selectItem itemValue="5" itemLabel="BA" />
+                                <f:selectItem itemValue="6" itemLabel="CE" />
+                                <f:selectItem itemValue="7" itemLabel="DF" />
+                                <f:selectItem itemValue="8" itemLabel="ES" />
+                                <f:selectItem itemValue="9" itemLabel="GO" />
+                                <f:selectItem itemValue="10" itemLabel="MA" />
+                                <f:selectItem itemValue="11" itemLabel="MT" />
+                                <f:selectItem itemValue="12" itemLabel="MS" />
+                                <f:selectItem itemValue="13" itemLabel="MG" />
+                                <f:selectItem itemValue="14" itemLabel="PA" />
+                                <f:selectItem itemValue="15" itemLabel="PB" />
+                                <f:selectItem itemValue="16" itemLabel="PR" />
+                                <f:selectItem itemValue="17" itemLabel="PE" />
+                                <f:selectItem itemValue="18" itemLabel="PI" />
+                                <f:selectItem itemValue="19" itemLabel="RJ" />
+                                <f:selectItem itemValue="20" itemLabel="RN" />
+                                <f:selectItem itemValue="21" itemLabel="RS" />
+                                <f:selectItem itemValue="22" itemLabel="RO" />
+                                <f:selectItem itemValue="23" itemLabel="RR" />
+                                <f:selectItem itemValue="24" itemLabel="SC" />
+                                <f:selectItem itemValue="25" itemLabel="SP" />
+                                <f:selectItem itemValue="26" itemLabel="SE" />
+                                <f:selectItem itemValue="27" itemLabel="TO" />
+                            </h:selectOneMenu>
+                        </td>
+                    </tr> 
+                    <tr>
+                        <td>
+                            CEP:
+                        </td>
+                        <td>
+                            <h:inputText id="cep" required="true" requiredMessage="CEP não pode ser Vazio" value="#{controleProdutos.enderecoCompra.cep}"/>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="3">
+                            <tcc:botaoConfirmar cancelar="#{controleProdutos.continuarCompra()}" confirmar="#{controleProdutos.paraFinalizarInclusaoEndereco()}" ConfirmarDescricao="Incluir" MenJavaScript="adicionar este novo Endereço?" cancelarDescricao="Voltar"/> 
+                        </td>
+                    </tr>
+                </table>                
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>

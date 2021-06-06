@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+    <!-- INTERFACE -->
+    <cc:interface displayName="O Botão Confirmar" name="botaoConfirmar">
+        <cc:attribute name="confirmar" method-signature="java.lang.String f()" required="true"/>
+        <cc:attribute name="ConfirmarDescricao" type="String" default="Confirmar"/>
+        <cc:attribute name="cancelar" method-signature="java.lang.String f()" required="true"/>
+        <cc:attribute name="cancelarDescricao" type="String" default="Cancelar"/>
+        <cc:attribute name="MenJavaScript" type="String" default="Continuar Operação?"/>
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        
+            <h:commandButton onclick="javascript:return confirm('Deseja #{cc.attrs.MenJavaScript}');" action="#{cc.attrs.confirmar}" value="#{cc.attrs.ConfirmarDescricao}"/>
+            &nbsp;
+            <cc:insertChildren/>
+            <h:commandButton onclick="javascript:return confirm('Deseja Cancelar Operação?')" action="#{cc.attrs.cancelar}" value="#{cc.attrs.cancelarDescricao}" immediate="true"/>
+      
+    </cc:implementation>
+</html>

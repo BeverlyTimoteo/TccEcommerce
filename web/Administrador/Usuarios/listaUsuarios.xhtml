@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="../AdmPadrao.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <ui:define name="title">
+        Lista de Usuarios
+    </ui:define>
+    <ui:define name="content">
+        <h2>Lista de Usuarios do Sistema</h2>
+        <h:messages/>
+        <h:form>
+            <c:if test="#{controleUsuarios.listaUsuarios.isEmpty()}">
+                Não existe usuarios cadastrados no sistema!
+            </c:if>
+            <c:if test="#{!controleUsuarios.listaUsuarios.isEmpty()}">
+                <h:dataTable var="item" value="#{controleUsuarios.listaUsuarios}">
+                    <h:column>
+                        <f:facet name="header">
+                            Id 
+                        </f:facet>
+                        #{item.id}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            Nome 
+                        </f:facet>
+                        #{item.nome}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            Email
+                        </f:facet>
+                        #{item.email}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            Usuario
+                        </f:facet>
+                        #{item.usuario}
+                    </h:column> 
+                    <h:column>
+                        <f:facet name="header">
+                            Ações 
+                        </f:facet>
+                        <h:commandLink action="#{controleUsuarios.editarUsuario}" value="Editar">
+                            <f:setPropertyActionListener target="#{controleUsuarios.beanSelecionado}" value="#{item}"/>                   
+                        </h:commandLink>    
+                        &nbsp;
+                        <h:commandLink onclick="return confirm('Deseja Confirmar');" action="#{controleUsuarios.removerUsuario}" value="Remover">
+                            <f:setPropertyActionListener target="#{controleUsuarios.beanSelecionado}" value="#{item}"/>                   
+                        </h:commandLink>                
+                    </h:column>
+                </h:dataTable>              
+            </c:if>
+        </h:form>
+    </ui:define>
+</ui:composition>

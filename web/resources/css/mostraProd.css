@@ -1,0 +1,17 @@
+
+ul li{
+    text-align: center;
+    list-style: none;
+    border: #AFAFAF;
+    float:left;    
+    width:240px;  
+    margin-top: 10px;
+    margin-bottom: 10px;
+    heigth:110px;
+}
+
+.borderDiv{
+    float: left;
+    border: #000000;
+    border-style: ridge groove;
+}

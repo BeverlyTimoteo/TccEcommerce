@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <h:body>
+        <ui:component>
+            <h:outputScript target="head" library="js" name="jquery.js"/>
+            <h:outputScript target="head" library="js" name="pesquisaProduto.js"/>
+            <h:form id="frmPesquisa">
+                <label style="margin: 10px 10px 10px 10px" for="campoPesquisa">
+                    PESQUISA   
+                </label>
+                <h:inputText onkeyup="javascript:pesquisaJson(this);" id="campoPesquisa" value="#{controlePesquisa.palavraChave}" style="width: 60%; margin: 10px 10px 10px 10px" maxlength="255"/>
+                <h:commandLink action="#{controlePesquisa.paraPesquisar()}"><h:graphicImage style="border: 0px;" value="/imagens/bt-pesquisar.gif"></h:graphicImage></h:commandLink>
+            </h:form>
+        </ui:component>
+    </h:body>
+</html>
+

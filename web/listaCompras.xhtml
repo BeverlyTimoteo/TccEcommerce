@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./padrao.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:tcc="http://java.sun.com/jsf/composite/componentes/TCC"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <ui:define name="title">
+        ELETROSUPER - Lista de Compras do Usu&aacute;rio
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form id="frmCompras">
+            <div id="compras">
+                <ul>
+                    <c:forEach items="#{controleProdutos.vendasUsuario}" var="item">
+                        <li style="list-style: none;">
+                            <rich:collapsiblePanel header="Pedido número #{item.id}" expanded="false" switchType="ajax"> 
+                                <table width="100%">
+                                    <tr>
+                                        <td style="padding-left: 0px; padding-right: 60px;">
+                                            <h4><strong><h:outputText value="Endereço para Entrega: "/></strong></h4><br/>
+                                            <h:outputText value="#{item.idEnderecoEnvio.rua}, #{item.idEnderecoEnvio.numero}, #{item.idEnderecoEnvio.bairro}"/><br/>
+                                            <h:outputText value="#{item.idEnderecoEnvio.cidade}"/><br/>
+                                            <h:outputText value="#{item.idEnderecoEnvio.cep}"/><br/>                                        
+                                        </td>                                        
+                                        <td style="padding-left: 0px; padding-right: 60px; padding-top: 0px;">
+
+                                            <h4><strong><h:outputText escape="true" value="Identifica&ccedil;&atilde;o da Venda: "/></strong></h4><br/>
+                                            <strong><h:outputText value="Número: #{item.id}"/></strong><br/>
+                                            <h:outputText escape="true" value="Data da Venda: "/><h:outputText value="#{item.datadavenda}"><f:convertDateTime pattern="dd/MM/yyyy"/></h:outputText><br/>
+                                            <h:outputText value="Total: "/><h:outputText value="#{item.total}"><f:convertNumber type="currency"/></h:outputText><br/>
+                                        </td>
+                                        <td style="padding-left: 0px; padding-right: 60px; padding-top: 0px;">
+                                            <h4><strong><h:outputText value="Status da Venda"/></strong></h4><br/>
+                                            <h:graphicImage style="margin-left: 10px;margin-right: 10px;margin-top: 10px;margin-bottom: 0px;width: 25px;height: 25px" value="/imagens/checar.png" alt="Imagem do Produto"/>
+                                            <h:outputText value="#{item.status.descricaoVenda}" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </rich:collapsiblePanel>
+                        </li>
+                    </c:forEach>
+                </ul>
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>

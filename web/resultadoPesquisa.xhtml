@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                template="./padrao.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <ui:define name="title">
+        ELETROSUPER - Pesquisa
+    </ui:define>
+
+    <ui:define name="content">
+        <h:outputStylesheet library="css" name="mostraProd.css"/>
+        <div id="divPesquisa">
+
+            <div class="borderDiv">
+                <h:form>
+                    <c:if test="#{controlePesquisa.listaResultado.size() == 0}">
+                        Encontramos #{controlePesquisa.listaResultado.size()} resultados para #{controlePesquisa.palavraChave}.                        
+                    </c:if>
+
+                    <ul>
+                        <c:forEach items="#{controlePesquisa.listaResultado}" var="item">
+                            <li>   
+                                <h:commandLink action="#{controleProdutos.mostrarDetalhesProduto()}"> 
+                                    <h:graphicImage library="imagens" value="#{item.fotoUrl}" style="border: 0px; width: 100px; height: 100px"/>
+                                    <br/>
+                                    <h:graphicImage value="/imagens/frete_novo.gif" style=" border: 0px; width: 100px; height: 20px"/>
+                                    <br/>                                 
+                                    <f:setPropertyActionListener target="#{controleProdutos.beanSelecionado}" value="#{item}"/>
+                                    <h:outputText value="#{item.nome}"/><br/>
+                                    <h:outputText value="Por: "></h:outputText><h:outputText value="#{item.preco}"><f:convertNumber type="currency"/></h:outputText>
+                                </h:commandLink>
+                            </li>               
+                        </c:forEach>
+                    </ul>
+                </h:form>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>
+

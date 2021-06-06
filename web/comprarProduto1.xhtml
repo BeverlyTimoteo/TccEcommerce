@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./padrao.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:tcc="http://java.sun.com/jsf/composite/componentes/TCC"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <ui:define name="title">
+        ELETROSUPER - Selecione o Destino de sua Compra
+    </ui:define>
+
+    <ui:define name="content">
+
+        <c:if test="#{!controleUsuarios.estaLogado()}">
+            <h:form>
+                <h3>Para comprar, é necessário ter seu Login!</h3>
+                Por favor, click aqui para <h:commandLink action="#{controleUsuarios.paraCriarNovoUsuarioSistemaConsumidor()}" value="criar">
+                    <f:setPropertyActionListener target="#{controleUsuarios.direcionaURLUsuarioLogin}" value="/comprarProduto1.faces"/>
+                </h:commandLink> uma nova conta. 
+                Ou <h:commandLink action="#{controleUsuarios.paraEntrarSistema()}" value="faça seu login ">
+                    <f:setPropertyActionListener target="#{controleUsuarios.direcionaURLUsuarioLogin}" value="/comprarProduto1.faces"/>
+                </h:commandLink>no sistema.
+            </h:form>
+        </c:if>
+        <c:if test="#{controleProdutos.listaProdCarrinho.isEmpty()}">
+            <h:form>
+                <table>
+                    <tr>
+                        <td colspan="4">
+                            <h:graphicImage value="/imagens/emptycart.png" alt="Carrinho Vazio"/>
+                        </td>
+                        <td>
+                            <h2>
+                                N&atilde;o h&aacute; produtos em seu carrinho.
+                            </h2>
+                            <p>Para inserir produtos no seu carrinho, navegue pelas categorias ou utilize a busca do site. Ao encontrar os itens</p>
+                            <p>  desejados, clique no botão <strong>Comprar.</strong></p>
+                            <h:commandButton action="#{controleProdutos.paraCancelar()}" value="VOLTAR PARA A LOJA"/>
+                        </td>
+                    </tr>
+                </table>
+            </h:form>
+        </c:if>
+
+        <c:if test="#{!controleProdutos.listaProdCarrinho.isEmpty()}">
+            <h:form id="frmCompraProd1" rendered="#{controleUsuarios.estaLogado()}">
+                <h:messages/>
+                <div id="compraProd1">
+                    <hr/>
+                    <tcc:ProdutosCarrinho/>
+                    <hr/>
+                    <br/>
+
+                    <c:if test="#{controleUsuarios.enderecoUsuarioLogadoSistema.isEmpty()}">
+                        <h3>
+                            Usuario sem Endereço registrado no sistema
+                        </h3>  
+                    </c:if>
+                    <h:dataTable style="width: 100%" var="item" value="#{controleUsuarios.enderecoUsuarioLogadoSistema}" rendered="#{!controleUsuarios.enderecoUsuarioLogadoSistema.isEmpty()}">
+                        <h:column>
+                            <f:facet name="header">
+                                Usuario  
+                            </f:facet>
+                            #{item.idUsuario.usuario}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                Rua 
+                            </f:facet>
+                            #{item.rua}/ #{item.bairro}/ #{item.cidade}/ CEP: #{item.cep}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                Numero 
+                            </f:facet>
+                            #{item.numero}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                Selecione
+                            </f:facet>
+                            <h:commandLink action="#{controleProdutos.irParaCompra2()}" value="Selecione">
+                                <f:setPropertyActionListener target="#{controleProdutos.enderecoCompra}" value="#{item}"/>
+                            </h:commandLink>
+                        </h:column>                
+                    </h:dataTable>
+                    <h:commandButton value="Novo Endereço" action="#{controleProdutos.paraAdicionarNovoEndereco()}"/>
+                    <hr/>
+                </div>
+            </h:form>
+        </c:if>
+    </ui:define>
+</ui:composition>

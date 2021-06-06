@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <!-- INTERFACE -->
+    <cc:interface displayName="A lista de Produtos" name="listaOfertas">
+        
+    </cc:interface>
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <h:outputStylesheet library="css" value="mostraProd.css"/>
+        <div class="borderDiv">
+            <h3>Ofertas</h3>
+            <hr/>
+            <ul style="float: none; list-style: none;
+                text-align: left;margin-top: 30px;margin-bottom: 20px;">
+                <c:forEach items="#{controleProdutos.produtosAltoEstoque}" var="item">
+                    <li style="text-align: left; margin-top: 30px;
+                        margin-bottom: 30px; padding: 0px; padding-right: 0px;
+                        text-align: justify">
+                        <h:commandLink action="#{controleProdutos.mostrarDetalhesProduto}">
+                            <h:graphicImage value="#{item.fotoUrl}"
+                                            style=" border: 0px; width: 40px; height: 40px"
+                                            alt="Imagem do produto #{item.nome}"/><br/>
+                            <f:setPropertyActionListener target="#{controleProdutos.beanSelecionado}"
+                                                         value="#{item}"/>
+                            <h:outputText value="#{item.nome}"/><br/>
+                            <h:outputText value="Por: "></h:outputText>
+                            <h:outputText value="#{item.preco}">
+                                <f:convertNumber type="currency"/>
+                            </h:outputText> </h:commandLink>
+                    </li>                   
+                </c:forEach>
+            </ul>
+        </div>
+    </cc:implementation>
+</html>

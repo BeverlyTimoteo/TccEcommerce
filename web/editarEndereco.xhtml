@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./padrao.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:tcc="http://java.sun.com/jsf/composite/componentes/TCC"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="title">
+        ELETROSUPER - Editar o Endere&ccedil;o
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form id="frmIncluirNovoEndereco">
+            <h:outputScript>
+                document.frmIncluirNovoEndereco["frmIncluirNovoEndereco:usuario"].focus();
+            </h:outputScript>
+            <h:messages/>
+            <div id="NovoEndereco">
+                <table>
+                    <tr>
+                        <td>
+                            Usuario
+                        </td>
+                        <td colspan="2">
+                            <h:inputText id="usuario" required="true" requiredMessage="Usuario não pode ser Vazio" value="#{controleProdutos.enderecoCompra.idUsuario.usuario}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            CEP:
+                        </td>
+                        <td>
+                            <h:inputText id="cep" required="true" requiredMessage="CEP não pode ser Vazio" value="#{controleProdutos.enderecoCompra.cep}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Rua
+                        </td>
+                        <td colspan="2">
+                            <h:inputText id="rua" required="true" requiredMessage="Rua não pode ser Vazio" value="#{controleProdutos.enderecoCompra.rua}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Numero
+                        </td>
+                        <td colspan="2">
+                            <h:inputText id="numero" required="true" requiredMessage="Numero não pode ser Vazio" value="#{controleProdutos.enderecoCompra.numero}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Estado
+                        </td>
+                        <td colspan="2">
+                            <h:inputText id="estado" required="true" requiredMessage="Estado não pode ser Vazio" value="#{controleProdutos.enderecoCompra.estado}"/>
+                        </td>
+                    </tr>   
+                    <tr>
+                        <td>
+                            Cidade
+                        </td>
+                        <td colspan="2">
+                            <h:inputText id="cidade" required="true" requiredMessage="Cidade não pode ser Vazio" value="#{controleProdutos.enderecoCompra.cidade}"/>
+                        </td>
+                    </tr>   
+                    <tr>
+                        <td>
+                            Bairro
+                        </td>
+                        <td colspan="2">
+                            <h:inputText id="bairro" required="true" requiredMessage="Bairro não pode ser Vazio" value="#{controleProdutos.enderecoCompra.bairro}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            <tcc:botaoConfirmar cancelar="#{controleUsuarios.paraVerEnderecos()}" confirmar="#{controleProdutos.paraFinalizarInclusaoEndereco()}" ConfirmarDescricao="Concluir Edição" MenJavaScript=" realmente editar o Endereço?" cancelarDescricao="Voltar"/> 
+                        </td>
+                    </tr>
+                </table>                
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>

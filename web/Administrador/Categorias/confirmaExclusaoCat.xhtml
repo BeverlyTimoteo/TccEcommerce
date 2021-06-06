@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <rich:popupPanel id="confirmacaoExclusaoPanel" header="Excluir" autosized="true">
+        <h:panelGrid columns="1">
+            <h:outputText value="Deseja realmente excluir o item?"/>
+            <h:panelGroup>
+                <a4j:commandButton value="Excluir" onclick="jsExcluir();return false;"/>
+                <h:outputText value=" "/>
+                <a4j:commandButton value="Cancelar"
+                                   onclick="#{rich:component('confirmacaoExclusaoPanel')}.hide();return false;"/>
+            </h:panelGroup>
+        </h:panelGrid>
+        <a4j:jsFunction name="jsExcluir" action="#{controleCategorias.removerCategoria}" render="tabelaCategorias,catPanel,noItems"
+                        execute="@this" oncomplete="#{rich:component('confirmacaoExclusaoPanel')}.hide();"/>        
+    </rich:popupPanel>
+</ui:composition>

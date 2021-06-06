@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./padrao.xhtml"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:h="http://java.sun.com/jsf/html">
+
+    <ui:define name="title">
+        Entrar no ELETROSUPER
+    </ui:define>
+
+    <ui:define name="content">
+        <h:outputScript>
+            document.frmEntrar["frmEntrar:usuario"].focus();
+        </h:outputScript> 
+        <h:form id="frmEntrar">
+            <rich:panel  header="Login do Usuário">
+                <h:panelGrid columns="3" frame="box" bgcolor="#ffffff">
+                    <h:messages/>
+                    <div>
+                        <table>
+                            <tr>
+                                <td>
+                                    Usuario
+                                </td>
+                                <td>
+                                    <h:inputText id="usuario" binding="#{controleUsuarios.UIusuario}" required="true" requiredMessage="Usuario não pode ser vazio" value="#{controleUsuarios.beanSelecionado.usuario}"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Password
+                                </td>
+                                <td>
+                                    <h:inputSecret id="senha"  validator="#{controleUsuarios.validarEntradaUsuario}" binding="#{controleUsuarios.UIsenha}" required="true" requiredMessage="Senha não pode ser vazia" value="#{controleUsuarios.beanSelecionado.senha}"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <h:commandLink action="#{controleUsuarios.paraEncerraEntrada()}" style="top: 54%; left: 105%; position: absolute">
+                                        <h:graphicImage alt="Continuar" style="border: 0px;" value="/imagens/btEntrar.gif"/>
+                                    </h:commandLink>
+
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </h:panelGrid>
+            </rich:panel>
+        </h:form>
+    </ui:define>
+</ui:composition>

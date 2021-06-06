@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./padrao.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:tcc="http://java.sun.com/jsf/composite/componentes/TCC"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <ui:define name="title">
+        ELETROSUPER - Lista de Endere&ccedil;o do Usu&aacute;rio
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form id="frmEnderecos">
+            <div id="endereco">
+                 <c:if test="#{controleUsuarios.enderecoUsuLogado.isEmpty()}">
+                <table>
+                    <tr>
+                        <td colspan="4">
+                            <h:graphicImage value="/imagens/endereco.jpg" alt="Cadastrar Endereço"/>
+                        </td>
+                        <td>
+                            <h2>
+                                N&atilde;o h&aacute; endereços cadastrados.
+                            </h2>
+                            <p>Cadastre novos endere&ccedil;os!</p>
+                            
+                            <h:commandButton value="Novo Endereço" action="#{controleProdutos.paraAdicionarNovoEndereco()}"/>
+                        </td>
+                    </tr>
+                </table>
+
+            </c:if>                
+                
+                <rich:dataTable id="tabelaEnderecos" var="item" style="width: 100%; text-align: center" value="#{controleUsuarios.enderecoUsuLogado}" rendered="#{not empty controleUsuarios.enderecoUsuLogado}">
+                    <rich:column>
+                        <f:facet name="header">
+                            <h:outputText escape="true" value="Usu&aacute;rio"/>  
+                        </f:facet>
+                        <h:outputText value="#{item.idUsuario.usuario}"/>
+                    </rich:column>
+                    <rich:column>
+                        <f:facet name="header">
+                            <h:outputText escape="true" value="Endere&ccedil;o"/> 
+                        </f:facet>
+                        <h:outputText value="#{item.rua}/ #{item.bairro}/ #{item.estado}"/>
+                    </rich:column>
+                    <rich:column>
+                        <f:facet name="header">
+                            <h:outputText escape="true" value="N&uacute;mero"/>
+                        </f:facet>
+                        <h:outputText value="#{item.numero}"/>
+                    </rich:column>
+                    <rich:column>
+                        <f:facet name="header">
+                            <h:outputText escape="true" value="Opera&ccedil;&otilde;es"/>
+                        </f:facet>
+                        <a4j:commandLink id="Excluir" execute="@this" render="@none" oncomplete="#{rich:component('confirmacaoExclusao')}.show()">
+                            <f:setPropertyActionListener target="#{controleUsuarios.enderecoSelecionado}" value="#{item}"/>
+                            <h:graphicImage style="border: 0px;" value="/imagens/excluir.gif" width="30" height="30"/>
+                            <rich:tooltip>
+                                <h:outputText value="Excluir"/>
+                            </rich:tooltip>
+                        </a4j:commandLink>  
+                        &nbsp;
+                        <a4j:commandLink id="Editar" action="#{controleUsuarios.paraEditarEndereco()}">
+                            <f:setPropertyActionListener target="#{controleUsuarios.enderecoSelecionado}" value="#{item}"/>
+                            <h:graphicImage style="border: 0px;" value="/imagens/edit.gif" width="30" height="30"/>
+                            <rich:tooltip>
+                                <h:outputText value="Editar"/>
+                            </rich:tooltip>
+                        </a4j:commandLink>
+                    </rich:column>
+                </rich:dataTable>
+                <h:commandButton value="Novo Endereço" rendered="#{!controleUsuarios.enderecoUsuLogado.isEmpty()}" action="#{controleProdutos.paraAdicionarNovoEndereco()}"/>
+                <ui:include src="/confirmaExclusaoEnd.xhtml"/> 
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./padrao.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:tcc="http://java.sun.com/jsf/composite/componentes/TCC"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <ui:define name="title">
+        ELETROSUPER - Selecione o Pagamento
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form id="frmcomprarProduto3" rendered="#{controleUsuarios.estaLogado()}">
+            <h:messages/>
+            <div id="comprarProduto3">
+                <f:validateBean>
+                    Frete: <h:outputText style="color: red; text-decoration: blink" value="#{controleProdutos.frete}"><f:convertNumber type="currency"/></h:outputText><br/>
+                    Total: <strong><h:outputText value="#{controleProdutos.totalVenda}"><f:convertNumber type="currency"/></h:outputText></strong><br/>
+                    <hr/>
+                    Bandeira <h:selectOneMenu value="#{controleProdutos.cartaoCred.bandeira}" required="true" requiredMessage="Por Favor selecione a Bandeira" label="Bandeira">
+                        <f:selectItems value="#{controleProdutos.bandeirasCC}" var="item" itemLabel="#{item}" itemValue="#{item}"/>
+                    </h:selectOneMenu><br/>
+                    N&uacute;mero de Parcelas <h:selectOneRadio layout="lineDirection" value="#{controleProdutos.cartaoCred.numeroVezes}" required="true" requiredMessage="Por Favor selecione o número de Vezes" label="Vezes">
+                        <f:selectItem itemLabel="1x" itemValue="1"/>
+                        <f:selectItem itemLabel="2x" itemValue="2"/>
+                        <f:selectItem itemLabel="3x" itemValue="3"/>
+                        <f:selectItem itemLabel="4x" itemValue="4"/>
+                        <f:selectItem itemLabel="5x" itemValue="5"/>
+                        <f:selectItem itemLabel="6x" itemValue="6"/>
+                        <f:selectItem itemLabel="7x" itemValue="7"/>
+                        <f:selectItem itemLabel="8x" itemValue="8"/>
+                        <f:selectItem itemLabel="9x" itemValue="9"/>
+                        <f:selectItem itemLabel="10x" itemValue="10"/>
+                        <f:selectItem itemLabel="11x" itemValue="11"/>
+                        <f:selectItem itemLabel="12x" itemValue="12"/>
+                    </h:selectOneRadio> <br/>
+                    Nome do Cart&atilde;o de Cr&eacute;dito: <h:inputText size="55" value="#{controleProdutos.cartaoCred.nomedousuariocartao}"/><br/>
+                    Numero do Cart&atilde;o: <h:inputText size="20" value="#{controleProdutos.cartaoCred.numerocartao}"/>
+                    Data de Validade: <h:inputText size="12" maxlength="10" value="#{controleProdutos.cartaoCred.datadevalidade}"><f:convertDateTime pattern="dd/MM/yyyy"/></h:inputText><br/>
+                    <br/>
+                </f:validateBean>
+                <tcc:botaoConfirmar cancelar="#{controleProdutos.paraCancelar()}" cancelarDescricao="Cancelar" confirmar="#{controleProdutos.irParaCompra4()}" ConfirmarDescricao="Continuar" MenJavaScript="Continuar? "/>
+                <hr/>
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>

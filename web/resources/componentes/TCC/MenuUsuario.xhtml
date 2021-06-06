@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <!-- INTERFACE -->
+    <cc:interface displayName="O menu do Usuario" name="MenuUsuario">
+    </cc:interface>
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <h:form id="frmMenuUsu">
+            <a4j:outputPanel rendered="#{controleUsuarios.estaLogado()}" ajaxRendered="true" layout="block"> 
+                <rich:toolbar id="bar" height="35" itemSeparator="grid"> 
+                    <rich:toolbarGroup location="center" itemSeparator="line"> 
+                        <h:commandButton action="/index.faces" value="Página principal"/>
+                        <h:commandButton action="#{controleUsuarios.paraVerEnderecos()}" value="Meus Endereços"/>
+                        <h:commandButton action="#{controleProdutos.continuarCompra()}"
+                                         value="Finalizar Compra - (#{controleProdutos.listaProdCarrinho.size()}) produto"/>
+                        <h:commandButton action="#{controleProdutos.paraVerProdutosComprados()}"
+                                         value="Minhas Compras -  (#{controleProdutos.vendasUsuario.size()}) itens"/>
+                    </rich:toolbarGroup>            
+                    <rich:toolbarGroup location="right" itemSeparator="line">  
+                        <h:commandButton value="Sair" action="#{controleUsuarios.paraSairSistema()}"/>
+                    </rich:toolbarGroup>     
+                </rich:toolbar>    
+            </a4j:outputPanel> 
+        </h:form>
+    </cc:implementation>
+</html>

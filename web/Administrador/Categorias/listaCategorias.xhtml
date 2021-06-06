@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="../AdmPadrao.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+
+
+    <ui:define name="title">
+        Lista de Categorias
+    </ui:define>
+
+    <ui:define name="content">
+            <h:form id="frmPesqCat">
+                <rich:panel  header="Pesquisa de Categorias" style="width: 100%">
+
+                <h:panelGrid style="width: 100%;" columns="2" frame="box" bgcolor="#ffffff" border="2"> 
+
+                    <a4j:outputPanel ajaxRendered="true" id="catPanel">
+
+                        <c:if test="#{controleCategorias.listaCat.isEmpty()}">
+                            A lista de categorias está Vazia !, para criar um novo Categoria
+                            <h:commandLink action="#{controleCategorias.novaCategoria}" value=" click aqui"/>.
+                        </c:if>
+
+                        <rich:dataTable  style="width: 100%; text-align: center" var="item" iterationStatusVar="cat" rendered="#{!controleCategorias.listaCat.isEmpty()}" value="#{controleCategorias.listaCat}" 
+                                        rows="5" id="tabelaCategorias">
+                            <rich:column style="text-align: center">
+                                <f:facet name="header">
+                                    <h:outputText value="Item"/>
+                                </f:facet>
+                                <h:outputText value="#{cat.index+1}"/>
+                            </rich:column>
+
+                            <rich:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Id" /> 
+                                </f:facet>
+                                <h:outputText value="#{item.id}"/>
+                            </rich:column>
+
+                            <rich:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Nome da Categoria"/>
+                                </f:facet>
+                                <h:outputText value="#{item.nome}"/>
+                            </rich:column>
+
+                            <rich:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Operações"/> 
+                                </f:facet>
+                                <a4j:commandLink id="linkEditar" action="#{controleCategorias.editarCategoria}">
+                                    <f:setPropertyActionListener target="#{controleCategorias.beanSelecionado}" value="#{item}"/> 
+                                    <h:graphicImage value="/imagens/edit.gif" width="30" height="30"/>
+                                    <rich:tooltip>
+                                        <h:outputText value="Editar"/>
+                                    </rich:tooltip>
+                                </a4j:commandLink>
+                                &nbsp;&nbsp;&nbsp;
+                                <a4j:commandLink id="linkExcluir" execute="@this" render="@none" oncomplete="#{rich:component('confirmacaoExclusaoPanel')}.show()">
+                                    <f:setPropertyActionListener target="#{controleCategorias.beanSelecionado}" value="#{item}"/> 
+                                    <h:graphicImage value="/imagens/excluir.gif" width="30" height="30"/>
+                                    <rich:tooltip>
+                                        <h:outputText value="Excluir"/>
+                                    </rich:tooltip>
+                                </a4j:commandLink>                                            
+                            </rich:column>
+
+                            <f:facet name="footer">
+                                <rich:dataScroller maxPages="5" for="tabelaCategorias"/>
+                            </f:facet>
+
+                        </rich:dataTable>
+                    </a4j:outputPanel>                    
+                </h:panelGrid>
+               <ui:include src="/Administrador/Categorias/confirmaExclusaoCat.xhtml"/> 
+                <br/><br/>
+                </rich:panel>
+                <h:commandButton immediate="true" action="#{controleCategorias.novaCategoria}" value="Adicionar nova Categoria"/>
+            </h:form>
+    </ui:define>
+</ui:composition>

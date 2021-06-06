@@ -1,0 +1,19 @@
+.admLogin{
+    text-align: center;
+    margin: 15% 15% 15% 40%;
+    position: absolute;        
+}
+
+.login{
+   text-align: left;
+   table-layout: auto;
+   table-layout: fixed;
+     
+}
+
+.error{
+    color: #D20005;
+}
+
+
+

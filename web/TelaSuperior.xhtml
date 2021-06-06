@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:body>
+        <ui:component>
+            <h:form>
+                <h:graphicImage value="/imagens/fundo_cinza.jpg" style="width: 100%; height: 90px; float: left; margin-top: 0px; margin-left: 0px; left: 0px; margin-bottom: 5px; "/>
+                <h:commandLink action="/index.faces"> <h:graphicImage value="/imagens/ELETRONOVO.gif" style="border: 0px; left: 40px; position: absolute; width: 400px; height: 150px; top: 2%" title="EletroSuper"/></h:commandLink>
+                <h:commandLink action="#{controleProdutos.verCarrinho()}"> <h:graphicImage value="/imagens/ecommerce.gif" style="border: 0px; text-align: right; right: 50px; top: 10px; position: absolute; width: 70px; height: 50px" title="Ir para o Carrinho"/></h:commandLink>
+                <div id="entrarSistema" style="text-align: right; right: 0px; top: 70px; position: absolute">
+                    <h:outputText rendered="#{controleUsuarios.estaLogado()}" value="Olá, #{controleUsuarios.usuarioLogado.nome}!"/>&nbsp;
+                    <h:outputText rendered="#{!controleUsuarios.estaLogado()}" value="Seja bem-vindo!"/>
+                    <h:commandLink rendered="#{!controleUsuarios.estaLogado()}" value="Faça seu Login " action="#{controleUsuarios.paraEntrarSistema()}"/>
+                    <h:outputText rendered="#{!controleUsuarios.estaLogado()}" value="ou "/>
+                    <h:commandLink rendered="#{!controleUsuarios.estaLogado()}" value="Cadastre-se" action="#{controleUsuarios.paraCriarNovoUsuarioSistemaConsumidor()}"/>&nbsp;
+                </div>
+                <h:graphicImage value="/imagens/barFrete.png" style="border:0px; float: left; margin-top: 0px; margin-left: 0px; left: 0px; margin-bottom: 5px; width: 100%"/>
+            </h:form>
+        </ui:component>
+    </h:body>
+</html>

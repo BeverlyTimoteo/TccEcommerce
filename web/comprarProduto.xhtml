@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./padrao.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:tcc="http://java.sun.com/jsf/composite/componentes/TCC"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <ui:define name="title">
+        ELETROSUPER -  Comprar o produto #{controleProdutos.beanSelecionado.nome} 
+    </ui:define>
+
+    <ui:define name="content">
+
+        <c:if test="#{!controleUsuarios.estaLogado()}">
+            <h:form>
+                <h3>Para comprar, é necessário ter seu Login!</h3>
+                Por favor, click aqui para <h:commandLink action="#{controleUsuarios.paraCriarNovoUsuarioSistemaConsumidor()}" value="criar">
+                    <f:setPropertyActionListener target="#{controleUsuarios.direcionaURLUsuarioLogin}" value="/comprarProduto.faces"/>
+                </h:commandLink> uma nova conta. 
+                Ou <h:commandLink action="#{controleUsuarios.paraEntrarSistema()}" value="faça seu login ">
+                    <f:setPropertyActionListener target="#{controleUsuarios.direcionaURLUsuarioLogin}" value="/comprarProduto.faces"/>
+                </h:commandLink>no sistema.
+            </h:form>
+        </c:if>
+
+
+        <h:form id="frmComprarProduto" rendered="#{controleUsuarios.estaLogado()}">
+            <h:messages/>
+            <div id="comprarProd">
+                <table>
+                    <tr>
+                        <td rowspan="4" style=" border: #AFAFAF; border-style: solid">
+                            <h:graphicImage style="margin-left: 20px;margin-right: 20px; margin-bottom: 20px;margin-top: 20px; width: 80px; height: 80px" value="#{controleProdutos.beanSelecionado.fotoUrl}" alt="Imagem do Produto"/>
+                        </td>
+                        <td>
+                            <strong><h2>#{controleProdutos.beanSelecionado.nome}</h2></strong>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong> Preço : <h:outputText style="color: red; text-decoration: blink" value="#{controleProdutos.beanSelecionado.preco}">
+                                    <f:convertNumber type="currency"/>
+                                </h:outputText>
+                            </strong>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Descrição: #{controleProdutos.beanSelecionado.descricao}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <tcc:botaoConfirmar cancelar="#{controleProdutos.paraCancelar()}" cancelarDescricao="Cancelar" confirmar="#{controleProdutos.comprarEChecar()}"  ConfirmarDescricao="Finalizar Compra" MenJavaScript="comprar este Produto?">
+                                <h:commandButton value="Adicionar e Continuar Comprando" action="#{controleProdutos.adicionarProdutoCarrinho()}"/>&nbsp;
+                            </tcc:botaoConfirmar>
+                        </td>
+                    </tr>
+                </table>                
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>

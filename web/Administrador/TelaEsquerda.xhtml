@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:rich="http://richfaces.org/rich">
+
+    <body>
+        <ui:component>
+            <div id="menu">
+                <h:panelGrid id="menuPanel" cellpadding="0" cellspacing="0" width="240">
+                    <h:form id="menuForm">
+                        <rich:panelMenu  itemMode="ajax" groupMode="ajax" groupExpandedLeftIcon="triangleUp"
+                                         groupCollapsedLeftIcon="triangleDown"
+                                         topGroupExpandedRightIcon="chevronUp"
+                                         topGroupCollapsedRightIcon="chevronDown"
+                                         itemLeftIcon="disc"
+                                         expandSingle="false">
+                            <rich:panelMenuGroup label="Cadastros" expanded="true">
+                                <rich:panelMenuGroup label="Produtos e Categorias">
+                                    <rich:panelMenuItem label="Lista de Produtos" action="#{controleProdutos.listaDeProdutos()}"/>
+                                    <rich:panelMenuItem label="Lista de Categorias" action="#{controleCategorias.listarCategorias()}"/>
+                                </rich:panelMenuGroup>                                
+                            </rich:panelMenuGroup>
+                            
+                            <rich:panelMenuGroup label="Vendas" expanded="true">
+                                <rich:panelMenuGroup label="Vendas e Status">
+                                    <rich:panelMenuItem label="Vendas Efetuadas" action="#{controleVendas.listarVendasFeitas()}"/>
+                                    <rich:panelMenuItem label="Status das Vendas" action="#{controleVendas.listaVendasPeloStatus()}"/>
+                                </rich:panelMenuGroup>
+                            </rich:panelMenuGroup>
+                            
+                            <rich:panelMenuGroup label="Usuarios" expanded="true">
+                                <rich:panelMenuItem label="Cadastrar Usuarios no Sistema" action="#{controleUsuarios.criarNovoUsuario()}"/>
+                                <rich:panelMenuItem label="Listar Usuarios no Sistema" action="#{controleUsuarios.listaUsuariosCadastrados()}"/>
+                                <rich:panelMenuItem 
+                                    label="Listar Usuarios que Compram no Ecommerce" action="#{controleUsuarios.listaUsuariosAtivos()}"/>
+                            </rich:panelMenuGroup>
+                            
+                        </rich:panelMenu>
+                    </h:form>
+                </h:panelGrid>
+                <h:form>
+                    <ul>                       
+                        <hr/>
+                        <a href="/TCCProjeto/SairAdministrador">
+                            <h:graphicImage alt="Sair com Segurança" value="/imagens/sair.png" 
+                                            style="border: 0px; width: 40px; height: 40px;">
+                            </h:graphicImage></a>
+                    </ul>
+                </h:form>
+            </div>
+        </ui:component>
+    </body>
+</html>

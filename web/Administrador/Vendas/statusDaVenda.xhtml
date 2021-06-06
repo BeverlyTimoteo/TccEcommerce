@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="../AdmPadrao.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <ui:define name="title">
+        As vendas e Status
+    </ui:define>
+    <ui:define name="content">        
+        <h:messages/>
+
+
+        <h:form id="frmVendasStatus">
+
+
+            <h2>Vendas de Status #{controleVendas.status}</h2>
+
+
+            Status: <h:selectOneMenu value="#{controleVendas.status}" 
+                                     label="Status">
+                <f:selectItems value="#{controleVendas.status.values()}"/>
+                <f:ajax event="change" execute="@this" render="@form" 
+                        listener="#{controleVendas.ajaxList()}"/>
+                    </h:selectOneMenu>
+
+
+            <br/>
+            <br/>
+            <br/>  
+            <h:outputText rendered="#{controleVendas.listaStatus.isEmpty()}" value="A lista de Vendas Esta Vazia !"/>
+            <br/>
+            <h:dataTable rendered="#{!controleVendas.listaStatus.isEmpty()}" var="item" value="#{controleVendas.listaStatus}">
+                <h:column>
+                    <f:facet name="header">
+                        Id 
+                    </f:facet>
+                    #{item.id}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        Usuario
+                    </f:facet>
+                    #{item.idUsuario.nome}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        Encerrado
+                    </f:facet>
+                    #{item.encerrou}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        Data da Venda
+                    </f:facet>
+                    <h:outputText value="#{item.datadavenda}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                    </h:outputText>
+
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        Status
+                    </f:facet>
+                    #{item.status}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        Total
+                    </f:facet>
+                    <h:outputText value="#{item.total}">
+                        <f:convertNumber type="currency"/>
+                    </h:outputText>                        
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        Opera&ccedil;&otilde;es
+                    </f:facet>
+                    <h:commandLink rendered="#{item.status == 'INICIO'}" action="#{controleVendas.statusValido()}" value="Valido">
+                        <f:setPropertyActionListener target="#{controleVendas.beanSelecionado}" value="#{item}"/>                   
+                    </h:commandLink>  
+                    &nbsp;
+
+                    <h:commandLink rendered="#{item.status == 'VALIDO'}" action="#{controleVendas.statusEmProgresso()}" value="Em Andamento">
+                        <f:setPropertyActionListener target="#{controleVendas.beanSelecionado}" value="#{item}"/>                   
+                    </h:commandLink>  
+                    &nbsp;
+
+                    <h:commandLink rendered="#{item.status == 'EM_ANDAMENTO'}" action="#{controleVendas.statusEnviado()}" value="Enviado">
+                        <f:setPropertyActionListener target="#{controleVendas.beanSelecionado}" value="#{item}"/>                   
+                    </h:commandLink> 
+                    &nbsp;
+
+                    <h:commandLink rendered="#{item.status == 'ENVIOU'}" action="#{controleVendas.statusFinal()}" value="Encerrar">
+                        <f:setPropertyActionListener target="#{controleVendas.beanSelecionado}" value="#{item}"/>                   
+                    </h:commandLink> 
+
+                    <h:outputText rendered="#{item.status == 'FIM'}"  escape="true" value="N&atilde;o existe Opera&ccedil;&otilde;es "/>
+                </h:column> 
+            </h:dataTable>                
+        </h:form>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./padrao.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="title">
+        ELETROSUPER - Criar um novo Usuario
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form>
+            Bem-vindo #{controleUsuarios.beanSelecionado.nome} ao sistema de Ecommerce<br/>
+       Sua conta foi criada com Sucesso!<br/>
+       Por favor, fa&ccedil;a seu login clicando <h:commandLink value="aqui." action="#{controleUsuarios.paraEntrarSistema()}"/><br/>
+        <br/>
+        Para continuar navegando no sistema sem fazer o login, por favor, click <h:commandLink value="aqui." action="#{controleUsuarios.paraCancelar()}"/>
+        
+        </h:form>
+    </ui:define>
+
+</ui:composition>

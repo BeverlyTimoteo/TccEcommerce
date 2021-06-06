@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="../AdmPadrao.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <ui:define name="title">
+        Vendas Feitas
+    </ui:define>
+    <ui:define name="content">
+        <h2>As ultimas 10 vendas feitas</h2>
+        <h:messages/>
+        <h:form>
+            <c:if test="#{controleVendas.listaVend.isEmpty()}">
+                Não existe vendas cadastradas!
+            </c:if>
+            <h:dataTable rendered="#{!controleVendas.listaVend.isEmpty()}" var="item" value="#{controleVendas.listaVend}">
+                <h:column>
+                    <f:facet name="header">
+                        Id 
+                    </f:facet>
+                    #{item.id}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        Comprador
+                    </f:facet>
+                    #{item.idUsuario.nome}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        Data da Venda
+                    </f:facet>
+                    <h:outputText value="#{item.datadavenda}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                    </h:outputText>
+
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        Status
+                    </f:facet>
+                    #{item.status}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        Total
+                    </f:facet>
+                    <h:outputText value="#{item.total}">
+                        <f:convertNumber type="currency"/>
+                    </h:outputText>                        
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        Encerrada
+                    </f:facet>
+                    #{item.encerrou}
+                </h:column>
+            </h:dataTable>
+        </h:form>
+    </ui:define>
+</ui:composition>

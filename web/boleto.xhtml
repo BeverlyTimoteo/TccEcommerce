@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./padrao.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:tcc="http://java.sun.com/jsf/composite/componentes/TCC"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <ui:define name="title">
+        ELETROSUPER - Finalizar Venda
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form id="frmComprarProdutoBoleto" rendered="#{controleUsuarios.estaLogado()}">
+            <h:messages/>
+            <div id="ComprarProdutoBoleto">
+                <h3>Venda Finalizada</h3>
+                <hr/>
+                Endereço para Entrega: <h:outputText value="#{controleProdutos.enderecoCompra.rua}"></h:outputText><br/>
+                Tipo do Pagamento: <h:outputText value="#{controleProdutos.escolhaFormaPagamento}"></h:outputText><br/>
+                Frete: <h:outputText value="#{controleProdutos.frete}"><f:convertNumber type="currency"/></h:outputText><br/>
+                Total: <h:outputText value="#{controleProdutos.totalVenda}"><f:convertNumber type="currency"/></h:outputText><br/>
+                <hr/>
+                A identificação de sua Venda é #{controleProdutos.vendSelecionada.id}, para ver o Boleto, click <a target="_blank" href="ServBoleto?id=#{controleProdutos.vendSelecionada.id}">aqui.</a>             
+                <hr/>
+            </div>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

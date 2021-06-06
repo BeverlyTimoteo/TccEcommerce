@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./padrao.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:tcc="http://java.sun.com/jsf/composite/componentes/TCC"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <ui:define name="title">
+        ELETROSUPER -  Comprar o produto #{controleProdutos.beanSelecionado.nome} 
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form>
+            <c:if test="#{controleProdutos.listaProdCarrinho.isEmpty()}">
+                <table>
+                    <tr>
+                        <td colspan="4">
+                            <h:graphicImage value="/imagens/emptycart.png" alt="Carrinho Vazio"/>
+                        </td>
+                        <td>
+                            <h2>
+                                N&atilde;o h&aacute; produtos em seu carrinho.
+                            </h2>
+                            <p>Para inserir produtos no seu carrinho, navegue pelas categorias ou utilize a busca do site. Ao encontrar os itens</p>
+                            <p>  desejados, clique no botão <strong>Comprar.</strong></p>
+                            <h:commandButton  action="#{controleProdutos.paraCancelar()}" value="VOLTAR PARA A LOJA"/>
+                        </td>
+                    </tr>
+                </table>
+
+            </c:if>
+            <c:if test="#{!controleProdutos.listaProdCarrinho.isEmpty()}">
+                <rich:panel header="Meu Carrinho"  style=" text-align:center; width: 100%">
+                    <h:panelGrid style="width: 100%;" frame="box" bgcolor="#ffffff" border="2">
+                        <tcc:ProdutosCarrinho/>
+                    </h:panelGrid>
+                    <br/><br/>
+                    <h:commandButton action="#{controleProdutos.paraCancelar()}" value="CONTINUAR COMPRANDO"/>&nbsp;
+                    <h:commandButton action="#{controleProdutos.comprarEChecar()}" value="FINALIZAR COMPRA"/>
+
+                </rich:panel>
+            </c:if>
+        </h:form>
+    </ui:define>
+</ui:composition>
